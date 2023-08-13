@@ -1,5 +1,7 @@
 'use client';
-import { Button } from '@/components/ui/button';
+
+// import { Button } from '@/components/ui/button';
+import { UserButton } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
@@ -10,13 +12,14 @@ export default function Home() {
       <p className="text-foreground">
         An open source AI platform (Unprotected)
       </p>
-      <Button
+      <button
         onClick={() => {
-          router.push('/dashboard');
+          router.push('/sign-in');
         }}
       >
         Get Started
-      </Button>
+      </button>
+      <UserButton afterSignOutUrl="/" className="text-foreground h-10 w-10" />
     </div>
   );
 }

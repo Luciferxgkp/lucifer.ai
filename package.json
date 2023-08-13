@@ -23,6 +23,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.23.2",
     "@radix-ui/react-slot": "^1.0.2",
     "autoprefixer": "10.4.14",
     "class-variance-authority": "^0.7.0",
