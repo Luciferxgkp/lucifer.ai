@@ -76,8 +76,8 @@ const Conversation = () => {
       <ScrollArea className="h-full w-full rounded-md">
         <div className="p-4">
           <h4 className="mb-4 text-sm font-medium leading-none">Tags</h4>
-          {tags.map((tag) => (
-            <div>
+          {tags.map((tag, index) => (
+            <div key={index}>
               <div className="text-sm" key={tag}>
                 {tag}
               </div>
