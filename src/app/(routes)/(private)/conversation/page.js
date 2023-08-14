@@ -6,6 +6,7 @@ import { MessageSquare } from 'lucide-react/dist/esm/lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import ReactMarkdown from 'react-markdown';
 import Avatar from 'src/components/avatar';
 import Heading from 'src/components/heading';
 import Loader from 'src/components/loader';
@@ -123,7 +124,22 @@ const Conversation = () => {
               )}
             >
               <Avatar role={message.role} />
-              <span className="text-sm font-medium">{message.content}</span>
+              <ReactMarkdown
+                components={{
+                  pre: ({ node, ...props }) => (
+                    <div className="overflow-x-auto w-full my-2 bg-black/10 rounded-lg p-2">
+                      <pre {...props} />
+                    </div>
+                  ),
+                  code: ({ node, ...props }) => (
+                    <code className=" bg-black/10 rounded-lg p-1" {...props} />
+                  ),
+                }}
+                className="text-sm overflow-hidden leading-7"
+              >
+                {message.content || ' '}
+              </ReactMarkdown>
+              {/* <pre className="text-sm font-medium">{message.content}</pre> */}
             </div>
           ))}
         </div>
