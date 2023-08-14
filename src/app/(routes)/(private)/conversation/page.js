@@ -1,7 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { MessageSquare } from 'lucide-react/dist/esm/lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Heading from 'src/components/heading';
 import { Button } from 'src/components/ui/button';
@@ -16,9 +19,6 @@ import { Input } from 'src/components/ui/input';
 import { ScrollArea } from 'src/components/ui/scroll-area';
 import { conversationSchema } from './schema.js';
 
-const tags = Array.from({ length: 50 }).map(
-  (_, i, a) => `v1.2.0-beta.${a.length - i}`
-);
 const Conversation = () => {
   const form = useForm({
     resolver: zodResolver(conversationSchema),
@@ -26,10 +26,30 @@ const Conversation = () => {
       prompt: '',
     },
   });
-  const onSubmit = (values) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  const router = useRouter();
+  const isLoading = form.formState.isSubmitting;
+  const [messages, setMessages] = useState([]);
+  const onSubmit = async (values) => {
+    try {
+      const userMessage = {
+        role: 'user',
+        content: values.prompt,
+      };
+
+      const newMessages = [...messages, userMessage];
+
+      const response = await axios.post('/api/conversation', {
+        messages: newMessages,
+      });
+
+      setMessages((prev) => [userMessage, response.data, ...prev]);
+      form.reset();
+    } catch (error) {
+      // TODO: open pro modal
+      console.log(error);
+    } finally {
+      router.refresh();
+    }
   };
   return (
     <div className="w-full h-screen">
@@ -59,7 +79,12 @@ const Conversation = () => {
             render={({ field }) => (
               <FormItem className="col-span-7 md:col-span-8 xl:col-span-9">
                 <FormControl>
-                  <Input placeholder="Search" {...field} />
+                  <Input
+                    placeholder="How do you feel today?"
+                    {...field}
+                    disabled={isLoading}
+                    // className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -67,20 +92,21 @@ const Conversation = () => {
           />
           <Button
             type="submit"
+            disabled={isLoading}
             className="col-span-3 md:col-span-2 xl:col-span-1"
           >
             Submit
           </Button>
         </form>
       </Form>
-      <ScrollArea className="h-full w-full rounded-md">
+      <ScrollArea className="h-[75vh] w-full rounded-md">
         <div className="p-4">
-          <h4 className="mb-4 text-sm font-medium leading-none">Tags</h4>
-          {tags.map((tag, index) => (
-            <div key={index}>
-              <div className="text-sm" key={tag}>
-                {tag}
-              </div>
+          {messages.map((message, index) => (
+            <div key={index} className="flex flex-col mb-4">
+              <span className="text-xs font-medium text-gray-500">
+                {message.role}
+              </span>
+              <span className="text-sm font-medium">{message.content}</span>
             </div>
           ))}
         </div>
