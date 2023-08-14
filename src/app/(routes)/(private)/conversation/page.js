@@ -6,7 +6,9 @@ import { MessageSquare } from 'lucide-react/dist/esm/lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Avatar from 'src/components/avatar';
 import Heading from 'src/components/heading';
+import Loader from 'src/components/loader';
 import { Button } from 'src/components/ui/button';
 import {
   Form,
@@ -17,6 +19,7 @@ import {
 } from 'src/components/ui/form';
 import { Input } from 'src/components/ui/input';
 import { ScrollArea } from 'src/components/ui/scroll-area';
+import { cn } from 'src/lib/utils';
 import { conversationSchema } from './schema.js';
 
 const Conversation = () => {
@@ -28,7 +31,12 @@ const Conversation = () => {
   });
   const router = useRouter();
   const isLoading = form.formState.isSubmitting;
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      role: 'assistant',
+      content: 'Hello, I am your assistant. How are you?',
+    },
+  ]);
   const onSubmit = async (values) => {
     try {
       const userMessage = {
@@ -100,12 +108,21 @@ const Conversation = () => {
         </form>
       </Form>
       <ScrollArea className="h-[75vh] w-full rounded-md">
-        <div className="p-4">
+        <div className="p-4 w-full ">
+          {isLoading && (
+            <div className="flex justify-center items-center h-36 bg-muted rounded-md mb-2">
+              <Loader size="small" />
+            </div>
+          )}
           {messages.map((message, index) => (
-            <div key={index} className="flex flex-col mb-4">
-              <span className="text-xs font-medium text-gray-500">
-                {message.role}
-              </span>
+            <div
+              key={index}
+              className={cn(
+                'flex gap-x-4 md:gap-x-8 p-4 rounded-md mb-2 items-center w-full',
+                message.role === 'assistant' ? 'bg-muted ' : 'border'
+              )}
+            >
+              <Avatar role={message.role} />
               <span className="text-sm font-medium">{message.content}</span>
             </div>
           ))}
