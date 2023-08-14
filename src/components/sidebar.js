@@ -63,7 +63,7 @@ const Sidebar = ({ className }) => {
   return (
     <div
       className={cn(
-        'flex flex-col w-72 h-screen items-center bg-[#111827]  text-white space-y-6 py-5',
+        'flex flex-col w-72 h-full items-center bg-[#111827]  text-white space-y-6 py-5',
         className
       )}
     >
