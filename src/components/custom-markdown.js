@@ -7,9 +7,9 @@ const CustomMarkdown = ({ content = '', className = '' }) => {
     <ReactMarkdown
       components={{
         pre: ({ node, ...props }) => (
-          //   <ScrollArea ">
-          <pre {...props} className="w-full my-2 rounded-lg p-2 bg-black/10" />
-          //   </ScrollArea>
+          <div className="overflow-auto w-full my-2 rounded-lg p-2 bg-black/10">
+            <pre {...props} />
+          </div>
         ),
         code: ({ node, inline, ...props }) => (
           <code
@@ -19,7 +19,7 @@ const CustomMarkdown = ({ content = '', className = '' }) => {
           />
         ),
       }}
-      className={cn('text-sm leading-7', className)}
+      className={cn('text-sm leading-7 overflow-hidden', className)}
     >
       {content || ' '}
     </ReactMarkdown>
