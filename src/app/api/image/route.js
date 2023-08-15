@@ -6,17 +6,12 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
-const instrutionMessage = {
-  role: 'system',
-  content:
-    'You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations.',
-};
 
 export const POST = async (req) => {
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { messages } = body;
+    const { prompt, count, size } = body;
 
     if (!userId) {
       return new NextResponse('UNAUTHORIZED', { status: 401 });
@@ -24,16 +19,26 @@ export const POST = async (req) => {
     if (!configuration.apiKey) {
       return new NextResponse('OPENAI_API_KEY_NOT_FOUND', { status: 500 });
     }
-    if (!messages) {
+    if (!prompt) {
       return new NextResponse('PROMPT_NOT_FOUND', { status: 400 });
     }
-    const response = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [instrutionMessage, ...messages],
+    if (!count) {
+      return new NextResponse('NUMBER_NOT_FOUND', { status: 400 });
+    }
+    if (!size) {
+      return new NextResponse('SIZE_NOT_FOUND', { status: 400 });
+    }
+
+    const response = await openai.createImage({
+      prompt: prompt,
+      n: parseInt(count),
+      size: size,
     });
 
-    return NextResponse.json(response.data.choices[0].message);
+    return NextResponse.json(response.data.data);
   } catch (error) {
-    return new NextResponse('CODE_INTERNAL_ERROR ' + error.message, { status: 500 });
+    return new NextResponse('IMAGE_INTERNAL_ERROR ' + error.message, {
+      status: 500,
+    });
   }
 };

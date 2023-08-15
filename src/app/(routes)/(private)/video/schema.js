@@ -2,6 +2,6 @@
 
 import * as z from 'zod';
 
-export const conversationSchema = z.object({
+export const videoSchema = z.object({
   prompt: z.string().nonempty(),
 });

@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { Music } from 'lucide-react/dist/esm/lucide-react';
+import { ArrowRight, Music } from 'lucide-react/dist/esm/lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -19,11 +19,11 @@ import {
 } from 'src/components/ui/form';
 import { Input } from 'src/components/ui/input';
 import { cn } from 'src/lib/utils';
-import { conversationSchema } from './schema.js';
+import { audioSchema } from './schema.js';
 
-const Conversation = () => {
+const AudioPage = () => {
   const form = useForm({
-    resolver: zodResolver(conversationSchema),
+    resolver: zodResolver(audioSchema),
     defaultValues: {
       prompt: '',
     },
@@ -102,7 +102,8 @@ const Conversation = () => {
             disabled={isLoading}
             className="col-span-3 md:col-span-2 xl:col-span-1"
           >
-            Submit
+            Generate
+            <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </form>
       </Form>
@@ -132,4 +133,4 @@ const Conversation = () => {
   );
 };
 
-export default Conversation;
+export default AudioPage;

@@ -2,6 +2,6 @@
 
 import * as z from 'zod';
 
-export const conversationSchema = z.object({
+export const codeSchema = z.object({
   prompt: z.string().nonempty(),
 });
