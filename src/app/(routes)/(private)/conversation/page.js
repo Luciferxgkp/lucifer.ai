@@ -6,8 +6,8 @@ import { MessageSquare } from 'lucide-react/dist/esm/lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import ReactMarkdown from 'react-markdown';
 import Avatar from 'src/components/avatar';
+import CustomMarkdown from 'src/components/custom-markdown';
 import Heading from 'src/components/heading';
 import Loader from 'src/components/loader';
 import { Button } from 'src/components/ui/button';
@@ -33,10 +33,7 @@ const Conversation = () => {
   const router = useRouter();
   const isLoading = form.formState.isSubmitting;
   const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content: 'Hello, I am your assistant. How are you?',
-    },
+    { role: 'assistant', content: 'Hello, I am your assistant. How are you?' },
   ]);
   const onSubmit = async (values) => {
     try {
@@ -60,6 +57,7 @@ const Conversation = () => {
       router.refresh();
     }
   };
+
   return (
     <div className="w-full h-screen">
       <Heading
@@ -124,21 +122,7 @@ const Conversation = () => {
               )}
             >
               <Avatar role={message.role} />
-              <ReactMarkdown
-                components={{
-                  pre: ({ node, ...props }) => (
-                    <div className="overflow-x-auto w-full my-2 bg-black/10 rounded-lg p-2">
-                      <pre {...props} />
-                    </div>
-                  ),
-                  code: ({ node, ...props }) => (
-                    <code className=" bg-black/10 rounded-lg p-1" {...props} />
-                  ),
-                }}
-                className="text-sm overflow-hidden leading-7"
-              >
-                {message.content || ' '}
-              </ReactMarkdown>
+              <CustomMarkdown content={message.content} />
               {/* <pre className="text-sm font-medium">{message.content}</pre> */}
             </div>
           ))}
