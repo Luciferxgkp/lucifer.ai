@@ -52,7 +52,7 @@ const Dashboard = () => {
           Explore the power of AI
         </h1>
         <h2 className="text-muted-foreground text-sm md:text-base lg:text-lg">
-          Chat with the smattest AI assistant
+          Chat with the smartest AI assistant
         </h2>
       </div>
       <div className="w-full h-full flex flex-col items-center gap-2 md:gap-4 px-8 md:px-16 lg:px-32">
