@@ -39,8 +39,7 @@ const AudioPage = () => {
         prompt: values.prompt,
       });
 
-      // setMusic(response.data.audio);
-      setMusic(response.data);
+      setMusic(response.data.audio);
       // console.log('AUDIO_RESPONSE', response.data);
       form.reset();
     } catch (error) {
