@@ -9746,6 +9746,11 @@ renderkid@^3.0.0:
     lodash "^4.17.21"
     strip-ansi "^6.0.1"
 
+replicate@^0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/replicate/-/replicate-0.16.1.tgz#8a096c7e91f6fc3630025efdba9b5e6f521b2d21"
+  integrity sha512-7GlY2IRJd4CwXLSO+eTNCRjYFlT10pgHQjYnwCBczr4+qdErIZp4sAEuRFfhzXNU3Bi+sYJJLpcddnUOFxStNg==
+
 require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"

@@ -38,7 +38,7 @@ const ImagePage = () => {
     resolver: zodResolver(imageSchema),
     defaultValues: {
       prompt: '',
-      size: '256x256',
+      size: '512x512',
       count: '1',
     },
   });
@@ -63,7 +63,8 @@ const ImagePage = () => {
       });
 
       // setImages((prev) => [...prev, ...response.data.map((item) => item.url)]);
-      setImages(() => [...response.data.map((item) => item.url)]);
+      // setImages(() => [...response.data.map((item) => item.url)]);
+      setImages(() => [...response.data]);
       form.reset();
     } catch (error) {
       // TODO: open pro modal
@@ -112,6 +113,8 @@ const ImagePage = () => {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  disabled={isLoading}
+                  {...field}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -138,6 +141,8 @@ const ImagePage = () => {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  disabled={isLoading}
+                  {...field}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -166,7 +171,7 @@ const ImagePage = () => {
           </Button>
         </form>
       </Form>
-      <div className="overflow-auto h-[75vh] w-full rounded-md">
+      <div className="overflow-auto h-[70vh] md:h-[75vh] w-full rounded-md">
         <div className="p-4 w-full h-full">
           {!isLoading && images.length === 0 && (
             <div
