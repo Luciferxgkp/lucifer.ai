@@ -32,6 +32,7 @@ import {
   SelectValue,
 } from 'src/components/ui/select';
 import { amountOptions, imageSchema, resolutionOptions } from './schema.js';
+import { toast } from 'react-toastify';
 
 const ImagePage = () => {
   const form = useForm({
@@ -67,7 +68,8 @@ const ImagePage = () => {
       form.reset();
     } catch (error) {
       // TODO: open pro modal
-      console.log(error);
+      // console.log(error);
+      toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }

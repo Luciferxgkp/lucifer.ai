@@ -21,6 +21,7 @@ import {
 import { Input } from 'src/components/ui/input';
 import { cn } from 'src/lib/utils';
 import { conversationSchema } from './schema.js';
+import { toast } from 'react-toastify';
 
 const Conversation = () => {
   const form = useForm({
@@ -54,7 +55,8 @@ const Conversation = () => {
       form.reset();
     } catch (error) {
       // TODO: open pro modal
-      console.log(error);
+      // console.log(error);
+      toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }

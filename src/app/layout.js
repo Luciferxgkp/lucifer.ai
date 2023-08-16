@@ -1,5 +1,7 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import { Inter } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { cn } from 'src/lib/utils';
 import './globals.css';
 
@@ -14,7 +16,20 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={cn('h-full', inter.className)}>{children}</body>
+        <body className={cn('h-full', inter.className)}>
+          {children}
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable={true}
+            pauseOnHover={true}
+          />
+        </body>
       </html>
     </ClerkProvider>
   );

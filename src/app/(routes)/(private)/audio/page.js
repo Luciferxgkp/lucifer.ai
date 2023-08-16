@@ -6,6 +6,7 @@ import { ArrowRight, Music } from 'lucide-react/dist/esm/lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import Avatar from 'src/components/avatar';
 import CustomMarkdown from 'src/components/custom-markdown';
 import Heading from 'src/components/heading';
@@ -44,7 +45,9 @@ const AudioPage = () => {
       form.reset();
     } catch (error) {
       // TODO: open pro modal
-      console.log(error);
+      // console.log(error?.response?.status);
+      // toast.error('Something went wrong. Please try again.');
+      toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }

@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { Code,ArrowRight } from 'lucide-react/dist/esm/lucide-react';
+import { ArrowRight, Code } from 'lucide-react/dist/esm/lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -21,6 +21,7 @@ import {
 import { Input } from 'src/components/ui/input';
 import { cn } from 'src/lib/utils';
 import { codeSchema } from './schema.js';
+import { toast } from 'react-toastify';
 
 const CodePage = () => {
   const form = useForm({
@@ -60,7 +61,8 @@ const CodePage = () => {
       form.reset();
     } catch (error) {
       // TODO: open pro modal
-      console.log(error);
+      // console.log(error);
+      toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }
