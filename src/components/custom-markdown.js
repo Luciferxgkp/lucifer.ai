@@ -6,12 +6,12 @@ const CustomMarkdown = ({ content = '', className = '' }) => {
   return (
     <ReactMarkdown
       components={{
-        pre: ({ node, ...props }) => (
+        pre: ({ ...props }) => (
           <div className="overflow-auto w-full my-2 rounded-lg p-2 bg-black/10">
             <pre {...props} />
           </div>
         ),
-        code: ({ node, inline, ...props }) => (
+        code: ({ ...props }) => (
           <code
             className="bg-black/10 rounded-lg p-1"
             //   inline={inline ? 'true' : 'false'}

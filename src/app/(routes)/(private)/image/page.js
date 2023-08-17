@@ -10,6 +10,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import Avatar from 'src/components/avatar';
 import CustomMarkdown from 'src/components/custom-markdown';
 import Heading from 'src/components/heading';
@@ -32,7 +33,6 @@ import {
   SelectValue,
 } from 'src/components/ui/select';
 import { amountOptions, imageSchema, resolutionOptions } from './schema.js';
-import { toast } from 'react-toastify';
 
 const ImagePage = () => {
   const form = useForm({
@@ -63,8 +63,9 @@ const ImagePage = () => {
         count: values.count,
       });
 
+      setImages(() => [...response.data]);
       // setImages((prev) => [...prev, ...response.data.map((item) => item.url)]);
-      setImages(() => [...response.data.map((item) => item.url)]);
+      // setImages(() => [...response.data.map((item) => item.url)]);
       form.reset();
     } catch (error) {
       // TODO: open pro modal
