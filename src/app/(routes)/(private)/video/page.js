@@ -57,7 +57,7 @@ const VideoPage = () => {
     <div className="w-full h-screen">
       <Heading
         title="Video Generation"
-        description="Generate audios/music using description."
+        description="Generate videos using description."
         Icon={Video}
         iconColor="text-yellow-500"
       />

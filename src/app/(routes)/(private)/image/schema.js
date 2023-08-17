@@ -9,8 +9,8 @@ export const imageSchema = z.object({
 });
 
 export const resolutionOptions = [
-  // '256x256',
-  '384x384',
+  '256x256',
+  // '384x384',
   '512x512',
   // '576x576',
   // '640x640',
