@@ -63,9 +63,10 @@ const ImagePage = () => {
         count: values.count,
       });
 
-      setImages(() => [...response.data]);
+      
+      // setImages(() => [...response.data]);
       // setImages((prev) => [...prev, ...response.data.map((item) => item.url)]);
-      // setImages(() => [...response.data.map((item) => item.url)]);
+      setImages(() => [...response.data.map((item) => item.url)]);
       form.reset();
     } catch (error) {
       // TODO: open pro modal
