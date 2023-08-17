@@ -7,7 +7,7 @@ const PrivateLayout = async ({ children }) => {
     <div className="flex h-full w-full">
       <Sidebar className="hidden md:flex" apiLimit={apiLimit} />
       <div className="flex flex-col w-full">
-        <Navbar />
+        <Navbar apiLimit={apiLimit} />
         <div>{children}</div>
       </div>
     </div>
