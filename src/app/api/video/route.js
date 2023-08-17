@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 import Replicate from 'replicate';
-import { getApiLimit, increaseApiLimit } from 'src/lib/api-limit';
+import { checkApiLimit, increaseApiLimit } from 'src/lib/api-limit';
 const replicate = new Replicate({
   auth: process.env.REPLICATEAI_API_TOKEN,
 });
@@ -20,7 +20,7 @@ export const POST = async (req) => {
     if (!prompt) {
       return new NextResponse('PROMPT_NOT_FOUND', { status: 400 });
     }
-    const isApiLimit = await getApiLimit();
+    const isApiLimit = await checkApiLimit();
     if (!isApiLimit) {
       return new NextResponse('Free API limit exceeded', { status: 429 });
     }

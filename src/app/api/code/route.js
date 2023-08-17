@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
-import { getApiLimit, increaseApiLimit } from 'src/lib/api-limit';
+import { checkApiLimit, increaseApiLimit } from 'src/lib/api-limit';
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -28,7 +28,7 @@ export const POST = async (req) => {
     if (!messages) {
       return new NextResponse('PROMPT_NOT_FOUND', { status: 400 });
     }
-    const isApiLimit = await getApiLimit();
+    const isApiLimit = await checkApiLimit();
     if (!isApiLimit) {
       return new NextResponse('Free API limit exceeded', { status: 429 });
     }

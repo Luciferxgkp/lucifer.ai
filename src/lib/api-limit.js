@@ -30,7 +30,7 @@ export const increaseApiLimit = async () => {
   }
 };
 
-export const getApiLimit = async () => {
+export const checkApiLimit = async () => {
   const { userId } = auth();
   if (!userId) return false;
   const userApiLimit = await prismaDb.UserApiLimit.findUnique({
