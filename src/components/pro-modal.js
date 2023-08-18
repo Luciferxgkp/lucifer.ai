@@ -42,21 +42,23 @@ const ProModalPage = () => {
               </div>
             </DialogTitle>
             <DialogDescription className="flex flex-col items-center gap-y-4 pt-2 justify-center">
-              {pages.map((page, index) => (
-                <Card
-                  key={index}
-                  className="p-3 border-black/3 flex items-center justify-between w-full"
-                >
-                  <div className="flex flex-row items-center gap-x-4">
-                    <div className={'p-2 w-fit'}>
-                      <page.icon className={cn('w-6 h-6', page.color)} />
+              {pages
+                .filter((page) => page.label !== 'Dashboard')
+                .map((page, index) => (
+                  <Card
+                    key={index}
+                    className="p-3 border-black/3 flex items-center justify-between w-full"
+                  >
+                    <div className="flex flex-row items-center gap-x-4">
+                      <div className={'p-2 w-fit'}>
+                        <page.icon className={cn('w-6 h-6', page.color)} />
+                      </div>
+                      <h1 className="text-sm font-semibold">{page.label}</h1>
+                      {/* <ArrowRight className="w-8 h-8" /> */}
                     </div>
-                    <h1 className="text-sm font-semibold">{page.label}</h1>
-                    {/* <ArrowRight className="w-8 h-8" /> */}
-                  </div>
-                  <Check className="w-6 h-6" />
-                </Card>
-              ))}
+                    <Check className="w-6 h-6" />
+                  </Card>
+                ))}
               <Button className="ml-auto w-full" variant="premium">
                 Upgrade
                 <Zap className="w-4 h-4 ml-2" />

@@ -1,5 +1,6 @@
 import {
   Code,
+  LayoutDashboard,
   Image,
   MessageSquare,
   Music,
@@ -7,6 +8,12 @@ import {
 } from 'lucide-react/dist/esm/lucide-react';
 export const MAX_FREE_COUNT = 5;
 export const pages = [
+  {
+    label: 'Dashboard',
+    icon: LayoutDashboard,
+    href: '/',
+    color: 'text-blue-500',
+  },
   {
     label: 'Conversation',
     icon: MessageSquare,

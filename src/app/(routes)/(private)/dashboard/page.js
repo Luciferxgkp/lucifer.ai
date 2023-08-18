@@ -17,23 +17,25 @@ const Dashboard = () => {
         </h2>
       </div>
       <div className="w-full h-full flex flex-col items-center gap-2 md:gap-4 px-8 md:px-16 lg:px-32">
-        {pages.map((page, index) => (
-          <Link
-            href={page.href}
-            key={index}
-            className="h-20 w-full border rounded-lg p-4"
-          >
-            <div className="flex flex-row items-center justify-between">
-              <div className={'flex flex-row items-center gap-4'}>
-                <page.icon className={cn('w-10 h-10', page.color)} />
-                <h1 className="text-base md:text-lg lg:text-xl font-bold">
-                  {page.label}
-                </h1>
+        {pages
+          .filter((page) => page.label !== 'Dashboard')
+          .map((page, index) => (
+            <Link
+              href={page.href}
+              key={index}
+              className="h-20 w-full border rounded-lg p-4"
+            >
+              <div className="flex flex-row items-center justify-between">
+                <div className={'flex flex-row items-center gap-4'}>
+                  <page.icon className={cn('w-10 h-10', page.color)} />
+                  <h1 className="text-base md:text-lg lg:text-xl font-bold">
+                    {page.label}
+                  </h1>
+                </div>
+                <ArrowRight className="w-8 h-8" />
               </div>
-              <ArrowRight className="w-8 h-8" />
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
       </div>
     </div>
   );
