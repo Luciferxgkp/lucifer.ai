@@ -20,9 +20,11 @@ import {
   FormMessage,
 } from 'src/components/ui/form';
 import { Input } from 'src/components/ui/input';
+import { useProModal } from 'src/hooks/use-pro-modal';
 import { audioSchema } from './schema.js';
 
 const AudioPage = () => {
+  const proModal = useProModal();
   const form = useForm({
     resolver: zodResolver(audioSchema),
     defaultValues: {
@@ -45,9 +47,12 @@ const AudioPage = () => {
       form.reset();
     } catch (error) {
       // TODO: open pro modal
+      if (error?.response?.status === 429) {
+        proModal.onOpen();
+      }
       // console.log(error?.response?.status);
       // toast.error('Something went wrong. Please try again.');
-      toast.error(error?.response?.data);
+      else toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }

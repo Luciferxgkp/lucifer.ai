@@ -6,10 +6,12 @@ import { ArrowRight, MessageSquare } from 'lucide-react/dist/esm/lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import Avatar from 'src/components/avatar';
 import CustomMarkdown from 'src/components/custom-markdown';
 import Heading from 'src/components/heading';
 import Loader from 'src/components/loader';
+import { useProModal } from 'src/hooks/use-pro-modal';
 import { Button } from 'src/components/ui/button';
 import {
   Form,
@@ -21,9 +23,8 @@ import {
 import { Input } from 'src/components/ui/input';
 import { cn } from 'src/lib/utils';
 import { conversationSchema } from './schema.js';
-import { toast } from 'react-toastify';
-
 const Conversation = () => {
+  const proModal = useProModal();
   const form = useForm({
     resolver: zodResolver(conversationSchema),
     defaultValues: {
@@ -54,9 +55,12 @@ const Conversation = () => {
       setMessages((prev) => [userMessage, response.data, ...prev]);
       form.reset();
     } catch (error) {
+      if (error?.response?.status === 429) {
+        proModal.onOpen();
+      }
       // TODO: open pro modal
       // console.log(error);
-      toast.error(error?.response?.data);
+      else toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }

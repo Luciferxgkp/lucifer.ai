@@ -32,9 +32,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'src/components/ui/select';
+import { useProModal } from 'src/hooks/use-pro-modal';
 import { amountOptions, imageSchema, resolutionOptions } from './schema.js';
-
 const ImagePage = () => {
+  const proModal = useProModal();
   const form = useForm({
     resolver: zodResolver(imageSchema),
     defaultValues: {
@@ -63,7 +64,6 @@ const ImagePage = () => {
         count: values.count,
       });
 
-      
       // setImages(() => [...response.data]);
       // setImages((prev) => [...prev, ...response.data.map((item) => item.url)]);
       setImages(() => [...response.data.map((item) => item.url)]);
@@ -71,7 +71,9 @@ const ImagePage = () => {
     } catch (error) {
       // TODO: open pro modal
       // console.log(error);
-      toast.error(error?.response?.data);
+      if (error?.response?.status === 429) {
+        proModal.onOpen();
+      } else toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }

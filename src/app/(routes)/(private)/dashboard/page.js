@@ -1,50 +1,11 @@
 'use client';
 
-import {
-  ArrowRight,
-  Code,
-  Image,
-  MessageSquare,
-  Music,
-  Video,
-} from 'lucide-react/dist/esm/lucide-react';
+import { ArrowRight } from 'lucide-react/dist/esm/lucide-react';
 import Link from 'next/link';
+import { pages } from 'src/constants';
 import { cn } from 'src/lib/utils';
 
 const Dashboard = () => {
-  const pages = [
-    {
-      label: 'Conversation',
-      icon: MessageSquare,
-      href: '/conversation',
-      color: 'text-gray-500',
-    },
-    {
-      label: 'Image Generation',
-      icon: Image,
-      href: '/image',
-      color: 'text-purple-500',
-    },
-    {
-      label: 'Video Generation',
-      icon: Video,
-      href: '/video',
-      color: 'text-yellow-500',
-    },
-    {
-      label: 'Audio Generation',
-      icon: Music,
-      href: '/audio',
-      color: 'text-slate-500',
-    },
-    {
-      label: 'Code Generation',
-      icon: Code,
-      href: '/code',
-      color: 'text-violet-500',
-    },
-  ];
-
   return (
     <div className="w-full h-screen flex flex-col items-center gap-8 ">
       <div className="w-full flex flex-col items-center justify-center gap-2 md:gap-4 ">

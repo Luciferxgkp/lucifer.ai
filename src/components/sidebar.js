@@ -11,54 +11,20 @@ import {
 import { Montserrat } from 'next/font/google';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { Button } from 'src/components/ui/button';
 import { Card, CardContent } from 'src/components/ui/card';
 import { Progress } from 'src/components/ui/progress';
 import { MAX_FREE_COUNT } from 'src/constants';
 import { cn } from 'src/lib/utils';
 const montserrat = Montserrat({ weight: '600', subsets: ['latin'] });
+import { pages } from 'src/constants';
+import { useProModal } from 'src/hooks/use-pro-modal';
 
 const Sidebar = ({ className, apiLimit = 0 }) => {
+  const proModal = useProModal();
   const pathName = usePathname();
-  const pages = [
-    {
-      label: 'Dashboard',
-      icon: LayoutDashboard,
-      href: '/dashboard',
-      color: 'text-sky-500',
-    },
-    {
-      label: 'Conversation',
-      icon: MessageSquare,
-      href: '/conversation',
-      color: 'text-grey-500',
-    },
-    {
-      label: 'Image Generation',
-      icon: Image,
-      href: '/image',
-      color: 'text-purple-500',
-    },
-    {
-      label: 'Video Generation',
-      icon: Video,
-      href: '/video',
-      color: 'text-yellow-500',
-    },
-    {
-      label: 'Audio Generation',
-      icon: Music,
-      href: '/audio',
-      color: 'text-slate-500',
-    },
-    {
-      label: 'Code Generation',
-      icon: Code,
-      href: '/code',
-      color: 'text-violet-500',
-    },
-  ];
+
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
@@ -104,7 +70,11 @@ const Sidebar = ({ className, apiLimit = 0 }) => {
               value={(apiLimit / MAX_FREE_COUNT) * 100}
               className="h-4 w-full"
             />
-            <Button className="w-full" variant="premium">
+            <Button
+              className="w-full"
+              variant="premium"
+              onClick={proModal.onOpen}
+            >
               Upgrade
               <Zap className="ml-2 w-4 h-4 fill-white" />
             </Button>

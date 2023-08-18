@@ -20,9 +20,10 @@ import {
   FormMessage,
 } from 'src/components/ui/form';
 import { Input } from 'src/components/ui/input';
+import { useProModal } from 'src/hooks/use-pro-modal';
 import { videoSchema } from './schema.js';
-
 const VideoPage = () => {
+  const proModal = useProModal();
   const form = useForm({
     resolver: zodResolver(videoSchema),
     defaultValues: {
@@ -47,7 +48,9 @@ const VideoPage = () => {
       // TODO: open pro modal
       // console.log(error?.response?.status);
       // toast.error('Something went wrong. Please try again.');
-      toast.error(error?.response?.data);
+      if (error?.response?.status === 429) {
+        proModal.onOpen();
+      } else toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }

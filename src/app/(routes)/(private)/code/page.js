@@ -6,6 +6,7 @@ import { ArrowRight, Code } from 'lucide-react/dist/esm/lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import Avatar from 'src/components/avatar';
 import CustomMarkdown from 'src/components/custom-markdown';
 import Heading from 'src/components/heading';
@@ -19,11 +20,11 @@ import {
   FormMessage,
 } from 'src/components/ui/form';
 import { Input } from 'src/components/ui/input';
+import { useProModal } from 'src/hooks/use-pro-modal';
 import { cn } from 'src/lib/utils';
 import { codeSchema } from './schema.js';
-import { toast } from 'react-toastify';
-
 const CodePage = () => {
+  const proModal = useProModal();
   const form = useForm({
     resolver: zodResolver(codeSchema),
     defaultValues: {
@@ -62,7 +63,9 @@ const CodePage = () => {
     } catch (error) {
       // TODO: open pro modal
       // console.log(error);
-      toast.error(error?.response?.data);
+      if (error?.response?.status === 429) {
+        proModal.onOpen();
+      } else toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }
