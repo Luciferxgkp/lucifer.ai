@@ -1,8 +1,6 @@
 import { auth } from '@clerk/nextjs';
 import prismaDb from 'src/lib/prismadb';
 
-const DAY_IN_MS = 1000 * 60 * 60 * 24;
-
 export const checkSubscription = async () => {
   const { userId } = auth();
 

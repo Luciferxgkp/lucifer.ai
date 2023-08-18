@@ -18,7 +18,6 @@ export async function POST(request) {
     return new NextResponse('WEB_HOOK_ERROR' + err.message, {
       status: 400,
     });
-    console.log(err);
   }
 
   const session = event.data.object;

@@ -1,25 +1,16 @@
 'use client';
-import {
-  Code,
-  Image,
-  LayoutDashboard,
-  MessageSquare,
-  Music,
-  Video,
-  Zap,
-} from 'lucide-react/dist/esm/lucide-react';
+import { Zap } from 'lucide-react/dist/esm/lucide-react';
 import { Montserrat } from 'next/font/google';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'src/components/ui/button';
 import { Card, CardContent } from 'src/components/ui/card';
 import { Progress } from 'src/components/ui/progress';
-import { MAX_FREE_COUNT } from 'src/constants';
+import { MAX_FREE_COUNT, pages } from 'src/constants';
+import { useProModal } from 'src/hooks/use-pro-modal';
 import { cn } from 'src/lib/utils';
 const montserrat = Montserrat({ weight: '600', subsets: ['latin'] });
-import { pages } from 'src/constants';
-import { useProModal } from 'src/hooks/use-pro-modal';
 
 const Sidebar = ({ className, apiLimit = 0 }) => {
   const proModal = useProModal();
