@@ -1,11 +1,13 @@
 import {
   Code,
-  LayoutDashboard,
   Image,
+  LayoutDashboard,
   MessageSquare,
   Music,
   Video,
+  Settings,
 } from 'lucide-react/dist/esm/lucide-react';
+
 export const MAX_FREE_COUNT = 5;
 export const pages = [
   {
@@ -43,5 +45,11 @@ export const pages = [
     icon: Code,
     href: '/code',
     color: 'text-violet-500',
+  },
+  {
+    label: 'Setting',
+    icon: Settings,
+    href: '/settings',
+    color: 'text-lime-500',
   },
 ];

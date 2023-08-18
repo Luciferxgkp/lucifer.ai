@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Check, Zap } from 'lucide-react/dist/esm/lucide-react';
 import React from 'react';
 import { Badge } from 'src/components/ui/badge';
@@ -16,13 +17,20 @@ import { cn } from 'src/lib/utils';
 
 const ProModalPage = () => {
   const proModal = useProModal();
-  const [isMounted, setIsMounted] = React.useState(false);
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  if (!isMounted) {
-    return null;
-  }
+  const [loading, setLoading] = React.useState(false);
+
+  const onSubscribe = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('/api/stripe');
+      window.location.href = response.data.url;
+      // console.log(response);
+    } catch (error) {
+      console.log('STRIPE ERROR', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -59,7 +67,12 @@ const ProModalPage = () => {
                     <Check className="w-6 h-6" />
                   </Card>
                 ))}
-              <Button className="ml-auto w-full" variant="premium">
+              <Button
+                onClick={onSubscribe}
+                className="ml-auto w-full"
+                variant="premium"
+                disabled={loading}
+              >
                 Upgrade
                 <Zap className="w-4 h-4 ml-2" />
               </Button>
