@@ -12,7 +12,7 @@ import { useProModal } from 'src/hooks/use-pro-modal';
 import { cn } from 'src/lib/utils';
 const montserrat = Montserrat({ weight: '600', subsets: ['latin'] });
 
-const Sidebar = ({ className, apiLimit = 0 }) => {
+const Sidebar = ({ className, apiLimit = 0, isPro = false }) => {
   const proModal = useProModal();
   const pathName = usePathname();
 
@@ -21,7 +21,6 @@ const Sidebar = ({ className, apiLimit = 0 }) => {
     setIsMounted(true);
   }, []);
   if (!isMounted) return;
-
   return (
     <div
       className={cn(
@@ -51,27 +50,29 @@ const Sidebar = ({ className, apiLimit = 0 }) => {
           ))}
         </div>
       </div>
-      <div className="px-3">
-        <Card className="bg-white/10 border-0">
-          <CardContent className="py-6 mb-4 space-y-2">
-            <div className="text-sm text-white ">
-              {apiLimit} / {MAX_FREE_COUNT} Free Generations
-            </div>
-            <Progress
-              value={(apiLimit / MAX_FREE_COUNT) * 100}
-              className="h-4 w-full"
-            />
-            <Button
-              className="w-full"
-              variant="premium"
-              onClick={proModal.onOpen}
-            >
-              Upgrade
-              <Zap className="ml-2 w-4 h-4 fill-white" />
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+      {!isPro && (
+        <div className="px-3">
+          <Card className="bg-white/10 border-0">
+            <CardContent className="py-6 mb-4 space-y-2">
+              <div className="text-sm text-white ">
+                {apiLimit} / {MAX_FREE_COUNT} Free Generations
+              </div>
+              <Progress
+                value={(apiLimit / MAX_FREE_COUNT) * 100}
+                className="h-4 w-full"
+              />
+              <Button
+                className="w-full"
+                variant="premium"
+                onClick={proModal.onOpen}
+              >
+                Upgrade
+                <Zap className="ml-2 w-4 h-4 fill-white" />
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 };
