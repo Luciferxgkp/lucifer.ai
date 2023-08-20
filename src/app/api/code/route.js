@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
 import { checkApiLimit, increaseApiLimit } from 'src/lib/api-limit';
+import { checkSubscription } from 'src/lib/subscriptions';
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -29,14 +30,18 @@ export const POST = async (req) => {
       return new NextResponse('PROMPT_NOT_FOUND', { status: 400 });
     }
     const isApiLimit = await checkApiLimit();
-    if (!isApiLimit) {
+    const isSubscribed = await checkSubscription();
+    if (!isApiLimit && !isSubscribed) {
       return new NextResponse('Free API limit exceeded', { status: 429 });
     }
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: [instrutionMessage, ...messages],
     });
-    await increaseApiLimit();
+
+    if (!isSubscribed) {
+      await increaseApiLimit();
+    }
     return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
     return new NextResponse('CODE_INTERNAL_ERROR ' + error.message, {

@@ -1,3 +1,4 @@
+'use client';
 import axios from 'axios';
 import { Check, Zap } from 'lucide-react/dist/esm/lucide-react';
 import React from 'react';
@@ -17,7 +18,14 @@ import { cn } from 'src/lib/utils';
 
 const ProModalPage = () => {
   const proModal = useProModal();
+  const [isMounted, setIsMounted] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMounted) {
+    return null;
+  }
 
   const onSubscribe = async () => {
     try {
@@ -51,7 +59,10 @@ const ProModalPage = () => {
             </DialogTitle>
             <DialogDescription className="flex flex-col items-center gap-y-4 pt-2 justify-center">
               {pages
-                .filter((page) => page.label !== 'Dashboard')
+                .filter(
+                  (page) =>
+                    page.label !== 'Dashboard' && page.label !== 'Settings'
+                )
                 .map((page, index) => (
                   <Card
                     key={index}

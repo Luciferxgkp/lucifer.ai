@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ModalProvider from 'src/components/modal-provider';
 import { cn } from 'src/lib/utils';
 import './globals.css';
+import CrispProvider from 'src/components/crisp-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
+        <CrispProvider />
         <body className={cn('h-full', inter.className)}>
           <ModalProvider />
           {children}

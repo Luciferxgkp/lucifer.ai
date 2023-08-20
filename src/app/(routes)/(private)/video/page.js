@@ -50,7 +50,9 @@ const VideoPage = () => {
       // toast.error('Something went wrong. Please try again.');
       if (error?.response?.status === 429) {
         proModal.onOpen();
-      } else toast.error(error?.response?.data);
+      } else toast.error('Something went wrong. Please try again.');
+
+      // else toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }

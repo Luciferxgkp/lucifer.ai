@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
 import { checkApiLimit, increaseApiLimit } from 'src/lib/api-limit';
+import { checkSubscription } from 'src/lib/subscriptions';
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -40,7 +41,8 @@ export const POST = async (req) => {
       return new NextResponse('RESOLUTION_NOT_FOUND', { status: 400 });
     }
     const isApiLimit = await checkApiLimit();
-    if (!isApiLimit) {
+    const isSubscribed = await checkSubscription();
+    if (!isApiLimit && !isSubscribed) {
       return new NextResponse('Free API limit exceeded', { status: 429 });
     }
 
@@ -49,7 +51,9 @@ export const POST = async (req) => {
       n: parseInt(count),
       size: size,
     });
-    await increaseApiLimit();
+    if (!isSubscribed) {
+      await increaseApiLimit();
+    }
     return NextResponse.json(response.data.data);
     // const height = size.split('x')[1];
     // const width = size.split('x')[0];

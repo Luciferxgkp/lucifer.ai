@@ -1,13 +1,9 @@
-'use client';
-import React from 'react';
 import ProModal from 'src/components/pro-modal';
+import { checkSubscription } from 'src/lib/subscriptions';
 
-const ModalProvider = () => {
-  const [isMounted, setIsMounted] = React.useState(false);
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  if (!isMounted) {
+const ModalProvider = async () => {
+  const isSubscribed = await checkSubscription();
+  if (isSubscribed) {
     return null;
   }
   return (

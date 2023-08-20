@@ -4,8 +4,8 @@ import {
   LayoutDashboard,
   MessageSquare,
   Music,
-  Video,
   Settings,
+  Video,
 } from 'lucide-react/dist/esm/lucide-react';
 
 export const MAX_FREE_COUNT = 5;
@@ -47,7 +47,7 @@ export const pages = [
     color: 'text-violet-500',
   },
   {
-    label: 'Setting',
+    label: 'Settings',
     icon: Settings,
     href: '/settings',
     color: 'text-lime-500',

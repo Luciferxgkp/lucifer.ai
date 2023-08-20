@@ -11,7 +11,6 @@ import Avatar from 'src/components/avatar';
 import CustomMarkdown from 'src/components/custom-markdown';
 import Heading from 'src/components/heading';
 import Loader from 'src/components/loader';
-import { useProModal } from 'src/hooks/use-pro-modal';
 import { Button } from 'src/components/ui/button';
 import {
   Form,
@@ -21,6 +20,7 @@ import {
   FormMessage,
 } from 'src/components/ui/form';
 import { Input } from 'src/components/ui/input';
+import { useProModal } from 'src/hooks/use-pro-modal';
 import { cn } from 'src/lib/utils';
 import { conversationSchema } from './schema.js';
 const Conversation = () => {
@@ -60,7 +60,9 @@ const Conversation = () => {
       }
       // TODO: open pro modal
       // console.log(error);
-      else toast.error(error?.response?.data);
+      else toast.error('Something went wrong. Please try again.');
+
+      // else toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }

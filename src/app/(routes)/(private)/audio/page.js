@@ -51,8 +51,8 @@ const AudioPage = () => {
         proModal.onOpen();
       }
       // console.log(error?.response?.status);
-      // toast.error('Something went wrong. Please try again.');
-      else toast.error(error?.response?.data);
+      else toast.error('Something went wrong. Please try again.');
+      // else toast.error(error?.response?.data);
     } finally {
       router.refresh();
     }
