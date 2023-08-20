@@ -23,7 +23,7 @@ Welcome to Lucifer AI, a revolutionary AI SaaS platform that empowers you to unl
 
 ## Demo
 
-https://youtu.be/4QxGGPDqZ2I
+https://github.com/Luciferxgkp/lucifer.ai/assets/76958987/5c63e30c-1b18-4639-90c7-93e42f55c868
 
 ## Overview
 
