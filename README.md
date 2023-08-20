@@ -108,9 +108,12 @@ We prioritize your satisfaction with effective customer support. Our Crisp integ
 
 Lucifer AI utilizes cutting-edge technologies:
 
+- Next.js and Tailwind css for frontend.
+- Clerk for user authentication. 
 - OpenAI API for chatbot, image, and code generation.
 - Replicate AI API for audio and video generation.
 - Planet-Scale Prisma DB for secure and scalable data management.
+- Crisp for customer support.
 
 ## Usage
 
