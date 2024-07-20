@@ -1,5 +1,7 @@
 # Lucifer AI: AI SaaS Platform for Creative Generation and Assistance
 
+https://github.com/user-attachments/assets/850df2fc-57f5-457e-8815-d7ddbd845b5c
+
 Welcome to Lucifer AI, a revolutionary AI SaaS platform that empowers you to unleash your creativity and streamline your workflows. With state-of-the-art features, seamless integrations, and a robust infrastructure, Lucifer AI is your ultimate solution for a wide range of creative tasks and automation needs.
 
 ## Table of Contents
